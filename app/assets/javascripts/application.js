@@ -13,3 +13,34 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
+
+function initMap() {
+    
+    var myCoords = new google.maps.LatLng(36.7069361, -4.4694441000000324);
+  
+    var mapOptions = {
+        zoom: 15,
+        center: myCoords,
+        scrollwheel: false    
+    }
+
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    var marker = new google.maps.Marker({
+        position: myCoords,
+        map: map,
+        title: 'TTS',
+        icon: '/assets/pulpo.png',
+        animation: google.maps.Animation.DROP
+    });
+
+    var contentString = '<h2>TTS</h2>' + '<p>Tech Talent South</p>';
+
+    var infowindow = new google.maps.InfoWindow({
+    content: contentString
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map,marker);
+    });
+}
