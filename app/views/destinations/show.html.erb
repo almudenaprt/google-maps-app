@@ -10,5 +10,17 @@
   <%= @destination.country %>
 </p>
 
+<p><%= @destination.latitude %>, <%= @destination.longitude %></p>
+
+<div id="destination-map"></div>
+
+<%= javascript_tag do %>
+  var latitude = '<%= j @destination.latitude.to_s %>';
+  var longitude = '<%= j @destination.longitude.to_s %>';
+  var address = '<%= j @destination.city %>';
+<% end %>
+
 <%= link_to 'Edit', edit_destination_path(@destination) %> |
 <%= link_to 'Back', destinations_path %>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5jn2AI_M7cdek6EqhMbFbdjieAI_rQ5I&callback=initDestinationMap" async defer></script>
