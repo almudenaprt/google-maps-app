@@ -12,6 +12,9 @@
 //
 //= require rails-ujs
 //= require turbolinks
+//= require jquery3
+//= require popper
+//= require bootstrap
 //= require_tree .
 
 function initMap() {
@@ -31,7 +34,8 @@ function initMap() {
         map: map,
         title: 'TTS',
         icon: '/assets/pulpo.png',
-        animation: google.maps.Animation.DROP
+        animation: google.maps.Animation.DROP,
+        draggable: true
     });
 
     var contentString = '<h2>TTS</h2>' + '<p>Tech Talent South</p>';
@@ -42,5 +46,39 @@ function initMap() {
 
     google.maps.event.addListener(marker, 'click', function() {
         infowindow.open(map,marker);
+    });
+}
+
+
+// --------
+
+// SHOW DESTINATION
+
+function initDestinationMap() {
+
+    var myCoords = new google.maps.LatLng(latitude,longitude);
+
+    var mapOptions = {
+       zoom: 15,
+       scrollwheel: false,   
+       center: myCoords
+    }
+
+    var map = new google.maps.Map(document.getElementById('destination-map'), mapOptions);
+
+    var marker = new google.maps.Marker({
+      position: myCoords,
+      map: map,
+      title: address
+    });
+ 
+    var contentString = '<h2>'+ address + '</h2>';
+
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map,marker);
     });
 }
